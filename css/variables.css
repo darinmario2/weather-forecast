@@ -1,0 +1,68 @@
+/*
+  variables.css
+  -------------
+  Glassmorphism dashboard theme: a deep navy backdrop, frosted-glass
+  cards (semi-transparent + blurred) for every category, a warm gold
+  accent for sun/temperature, and a cool blue accent for precipitation.
+*/
+
+:root {
+  /* Page background */
+  --bg-deep: #0a1420;
+  --bg-deep-2: #16222f;
+
+  /* Glass card surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.055);
+  --glass-bg-strong: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-blur: 22px;
+
+  /* Text */
+  --text-primary: #f5f7fa;
+  --text-secondary: #aab4c0;
+  --text-muted: #74808c;
+
+  /* Accents */
+  --accent-gold: #ffb648;
+  --accent-gold-soft: rgba(255, 182, 72, 0.16);
+  --accent-blue: #5ec8f2;
+  --accent-error: #ff6b6b;
+  --accent-error-soft: rgba(255, 107, 107, 0.14);
+
+  /* Air quality scale */
+  --aqi-good: #4fd1a5;
+  --aqi-fair: #e8d15a;
+  --aqi-moderate: #ffb648;
+  --aqi-poor: #ff6b6b;
+  --aqi-very-poor: #c084fc;
+
+  /* Spacing */
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.2rem;
+  --space-lg: 1.8rem;
+  --space-xl: 2.6rem;
+
+  /* Radius */
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+
+  /* Shadow */
+  --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.35);
+
+  /* Motion */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Type */
+  --font-main: 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

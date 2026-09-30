@@ -1,0 +1,63 @@
+/*
+  responsive.css
+  --------------
+  Media queries for tablet and mobile. The dashboard grid collapses to
+  a single column, and tile grids drop from 4/2 columns down to fewer.
+*/
+
+@media (max-width: 900px) {
+  .dashboard-row-top {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-row-mid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hourly-tiles {
+    grid-template-columns: repeat(4, minmax(90px, 1fr));
+    overflow-x: auto;
+  }
+
+  /* 7 equal columns get too cramped on tablets - wrap to 4 per row */
+  .daily-tiles {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .dashboard-row-mid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Phones: 3 per row, wrapping to a couple more rows */
+  .daily-tiles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .current-body-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .current-icon {
+    align-self: center;
+  }
+
+  .app-main {
+    padding: var(--space-sm) var(--space-md) var(--space-lg);
+  }
+}

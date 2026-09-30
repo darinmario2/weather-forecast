@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeatherNow - Weather Forecast App</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Fixed full-screen canvas behind everything, drawn by backgroundEffect.js.
+       Shows rain/snow/stars/clouds matching the real current weather. -->
+  <canvas id="weather-background-canvas"></canvas>
+
+  <!-- HEADER: logo, search bar, unit toggle -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon" style="color: var(--accent-gold);" aria-hidden="true">&#9679;</span>
+        <span class="logo-text">WeatherNow</span>
+      </div>
+      <div id="search-bar-container"></div>
+      <div id="unit-toggle-container"></div>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD: every category is its own glass box -->
+  <main class="app-main">
+
+    <!-- Loading spinner appears here while data is being fetched -->
+    <div id="loading-container"></div>
+
+    <!-- Error message appears here if something goes wrong -->
+    <div id="error-container"></div>
+
+    <!-- Row 1: current weather + hourly forecast -->
+    <div class="dashboard-row-top">
+      <section id="current-weather-container"></section>
+      <section id="hourly-forecast-container"></section>
+    </div>
+
+    <!-- Row 2: quick stats, sunrise/sunset, air quality -->
+    <div class="dashboard-row-mid">
+      <section id="weather-stats-container"></section>
+      <section id="sunrise-sunset-container"></section>
+      <section id="air-quality-container"></section>
+    </div>
+
+    <!-- Row 3: 5-day forecast, full width -->
+    <section id="daily-forecast-container"></section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy;WeatherNow</p>
+  </footer>
+
+  <!-- STATE (loaded first, everything else depends on it) -->
+  <script src="js/state/weatherState.js"></script>
+
+  <!-- UTILITIES (pure functions, no DOM) -->
+  <script src="js/utils/formatTemperature.js"></script>
+  <script src="js/utils/formatDate.js"></script>
+  <script src="js/utils/formatTime.js"></script>
+  <script src="js/utils/weatherIcon.js"></script>
+  <script src="js/utils/airQuality.js"></script>
+
+  <!-- API (talks to OpenWeatherMap) -->
+  <!-- config.js holds your real key and is gitignored - see js/api/config.example.js -->
+  <script src="js/api/config.js"></script>
+  <script src="js/api/weatherApi.js"></script>
+
+  <!-- REUSABLE COMPONENTS -->
+  <script src="js/components/Button.js"></script>
+  <script src="js/components/SearchBar.js"></script>
+  <script src="js/components/UnitToggle.js"></script>
+  <script src="js/components/Loading.js"></script>
+  <script src="js/components/ErrorMessage.js"></script>
+  <script src="js/components/WeatherCard.js"></script>
+  <script src="js/components/WeatherDetails.js"></script>
+  <script src="js/components/SunriseSunset.js"></script>
+  <script src="js/components/AirQualityCard.js"></script>
+  <script src="js/components/HourlyForecast.js"></script>
+  <script src="js/components/ForecastCard.js"></script>
+
+  <!-- LIVE BACKGROUND EFFECT (rain/snow/stars/clouds behind everything) -->
+  <script src="js/effects/backgroundEffect.js"></script>
+
+  <!-- MAIN APP LOGIC (ties everything together, loaded last) -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+/*
+  layout.css
+  ----------
+  Dashboard grid: a top row (current weather + hourly forecast), a
+  middle row of three equal category cards (stats, sunrise/sunset,
+  air quality), and a full-width row of daily forecast tiles below.
+  Every category is its own separate boxed container, per the design brief.
+*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  /* Deep navy backdrop with soft glowing patches, like the reference's
+     blurred storm-sky photo, built entirely from CSS gradients. The
+     "live" effect: the three glow patches slowly drift, animated via
+     background-position (see weatherDrift below). */
+  background-color: var(--bg-deep);
+  background-image:
+    radial-gradient(circle, rgba(94, 200, 242, 0.16), transparent 45%),
+    radial-gradient(circle, rgba(255, 182, 72, 0.12), transparent 40%),
+    radial-gradient(circle, rgba(94, 200, 242, 0.10), transparent 50%),
+    linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-deep-2) 100%);
+  background-size: 140% 140%, 130% 130%, 160% 160%, 100% 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  animation: skyDrift 40s ease-in-out infinite;
+}
+
+@keyframes skyDrift {
+  0%   { background-position: 15% 20%, 85% 10%, 50% 100%, 0 0; }
+  50%  { background-position: 25% 30%, 75% 20%, 45% 90%,  0 0; }
+  100% { background-position: 15% 20%, 85% 10%, 50% 100%, 0 0; }
+}
+
+/* Weather particle canvas sits behind all content, fixed to the viewport */
+#weather-background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.app-header, .app-main, .app-footer {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+}
+
+/* Header */
+.app-header {
+  padding: var(--space-md) var(--space-lg);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Main dashboard container */
+.app-main {
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-sm) var(--space-lg) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Row 1: current weather (narrower) + hourly forecast (wider) */
+.dashboard-row-top {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+/* Row 2: three equal category cards */
+.dashboard-row-mid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+/* Stat tiles inside the "Stats" card - 2x2 grid */
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+/* Hourly forecast tiles inside its card */
+.hourly-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+}
+
+/* Daily forecast row: full width, its own boxed tile per day.
+   Grid with equal-width columns means every tile stretches to fill
+   the row and stays centered, instead of bunching to the left with
+   empty space on the right when there are fewer than 7 days. */
+.daily-tiles {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-sm);
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: var(--space-md);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}

@@ -1,0 +1,8 @@
+# Keeps your real API key out of GitHub.
+# config.example.js (the placeholder template) is still committed.
+js/api/config.js
+
+# Common OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/
