@@ -173,13 +173,8 @@ function renderCurrentWeather() {
   container.innerHTML = "";
   container.appendChild(createWeatherCard(weatherState.currentWeather, weatherState.unit));
 
-  // OpenWeatherMap icon codes end in "d" for day or "n" for night
-  // (e.g. "01d", "10n"), which is the simplest way to tell which we have.
-  var iconCode = weatherState.currentWeather.weather[0].icon;
-  var isNight = iconCode.indexOf("n") !== -1;
   var conditionMain = weatherState.currentWeather.weather[0].main;
-
-  setBackgroundCondition(conditionMain, isNight);
+  setBackgroundCondition(conditionMain);
 }
 
 function renderWeatherStats() {

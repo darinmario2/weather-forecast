@@ -1,4 +1,4 @@
-# Weatherly — Weather Prediction Web App
+# WeatherNow — Weather Prediction Web App
 
 A responsive weather dashboard built with plain HTML5, CSS3 and vanilla
 JavaScript (no frameworks), using the OpenWeatherMap API.
@@ -18,11 +18,11 @@ JavaScript (no frameworks), using the OpenWeatherMap API.
 
 ## Design
 
-The UI is a glassmorphism dashboard: a deep navy backdrop (built from
-CSS gradients, no image file needed) with every category in its own
-frosted-glass card - current weather, stats, sunrise/sunset, air
-quality, hourly forecast, and the 5-day forecast are all visually
-separate boxes rather than one long page.
+The UI is a glassmorphism dashboard on a soft "daylight sky" backdrop
+(a pastel gradient built entirely from CSS, no image file needed), with
+every category in its own frosted-glass card - current weather, stats,
+sunrise/sunset, air quality, hourly forecast, and the forecast are all
+visually separate boxes rather than one long page.
 
 - **Sunrise/sunset** is a progress bar from sunrise to sunset with a
   dot showing roughly where we are in the day right now, plus total
@@ -37,11 +37,12 @@ separate boxes rather than one long page.
   custom icon set to match the glass aesthetic exactly would be a
   separate, focused task if you want to take it further.
 - **The background is "live"**: a fixed `<canvas>` behind everything
-  (`js/effects/backgroundEffect.js`) draws falling rain, snow, twinkling
-  stars, or slow drifting clouds depending on the *real* current
-  condition and time of day, and the page background gradient itself
-  slowly drifts (`skyDrift` in `css/layout.css`). Both are skipped if the
-  visitor's system has "reduce motion" turned on.
+  (`js/effects/backgroundEffect.js`) draws falling rain, falling snow,
+  gently rising golden sparkle (for clear skies), or slow drifting
+  clouds depending on the *real* current weather condition, and the
+  page background gradient itself slowly drifts (`skyDrift` in
+  `css/layout.css`). Both are skipped if the visitor's system has
+  "reduce motion" turned on.
 
 ## Technologies Used
 
@@ -89,6 +90,15 @@ weather-app/
 5. New keys can take up to a couple of hours to activate — if you see
    an "Invalid API key" error right after signing up, that's normal;
    try again later.
+
+**Deploying to GitHub Pages:** `.github/workflows/deploy.yml` builds
+`js/api/config.js` from a repository secret at deploy time, so your real
+key never has to be committed to the repo. Set it up once:
+1. Repo Settings → Secrets and variables → Actions → New repository
+   secret → name it `OPENWEATHER_API_KEY`, paste your real key.
+2. Repo Settings → Pages → under "Build and deployment", set Source to
+   **GitHub Actions** (not "Deploy from a branch").
+3. Push to `main` - the workflow runs automatically and publishes the site.
 
 **Pushing to GitHub:** because this is a plain client-side app with no
 backend, whatever key ends up in the browser is technically visible to

@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+# Runs every time you push to main. Builds js/api/config.js from a
+# repository secret (so the real API key never lives in git history),
+# then publishes the whole site to GitHub Pages.
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: # lets you also trigger this manually from the Actions tab
+
+# Needed so this workflow is allowed to publish to Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If you push again while a deploy is still running, cancel the old one
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Create config.js from the OPENWEATHER_API_KEY secret
+        run: |
+          mkdir -p js/api
+          echo "var API_KEY = \"${{ secrets.OPENWEATHER_API_KEY }}\";" > js/api/config.js
+
+      - name: Prepare GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the site (including the generated config.js)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

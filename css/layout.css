@@ -25,16 +25,16 @@ body {
   flex-direction: column;
   position: relative;
 
-  /* Deep navy backdrop with soft glowing patches, like the reference's
-     blurred storm-sky photo, built entirely from CSS gradients. The
-     "live" effect: the three glow patches slowly drift, animated via
-     background-position (see weatherDrift below). */
-  background-color: var(--bg-deep);
+  /* Soft pastel daytime sky with gently glowing color patches, built
+     entirely from CSS gradients. The "live" effect: the three glow
+     patches slowly drift, animated via background-position (see
+     skyDrift below). */
+  background-color: var(--bg-sky-bottom);
   background-image:
-    radial-gradient(circle, rgba(94, 200, 242, 0.16), transparent 45%),
-    radial-gradient(circle, rgba(255, 182, 72, 0.12), transparent 40%),
-    radial-gradient(circle, rgba(94, 200, 242, 0.10), transparent 50%),
-    linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-deep-2) 100%);
+    radial-gradient(circle, rgba(14, 165, 233, 0.14), transparent 45%),
+    radial-gradient(circle, rgba(245, 158, 11, 0.13), transparent 40%),
+    radial-gradient(circle, rgba(236, 72, 153, 0.08), transparent 50%),
+    linear-gradient(180deg, var(--bg-sky-top) 0%, var(--bg-sky-bottom) 100%);
   background-size: 140% 140%, 130% 130%, 160% 160%, 100% 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;

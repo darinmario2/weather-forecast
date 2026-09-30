@@ -257,7 +257,7 @@
   height: 16px;
   border-radius: 50%;
   background: var(--accent-gold);
-  box-shadow: 0 0 0 4px rgba(255, 182, 72, 0.25);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.25);
   transform: translate(-50%, -50%);
 }
 

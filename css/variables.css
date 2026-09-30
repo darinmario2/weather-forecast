@@ -1,40 +1,41 @@
 /*
   variables.css
   -------------
-  Glassmorphism dashboard theme: a deep navy backdrop, frosted-glass
-  cards (semi-transparent + blurred) for every category, a warm gold
-  accent for sun/temperature, and a cool blue accent for precipitation.
+  "Daylight Sky Glass" theme: the same frosted-glass, boxed-card
+  dashboard as before, but built on a soft pastel daytime sky instead
+  of a night sky - light frosted cards, dark readable text, warm amber
+  for sun/temperature, saturated sky-blue for precipitation.
 */
 
 :root {
-  /* Page background */
-  --bg-deep: #0a1420;
-  --bg-deep-2: #16222f;
+  /* Page background: soft pastel sky gradient */
+  --bg-sky-top: #eaf4ff;
+  --bg-sky-bottom: #fdf1e7;
 
-  /* Glass card surfaces */
-  --glass-bg: rgba(255, 255, 255, 0.055);
-  --glass-bg-strong: rgba(255, 255, 255, 0.09);
-  --glass-border: rgba(255, 255, 255, 0.14);
+  /* Glass card surfaces (light, frosted) */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(30, 41, 59, 0.08);
   --glass-blur: 22px;
 
-  /* Text */
-  --text-primary: #f5f7fa;
-  --text-secondary: #aab4c0;
-  --text-muted: #74808c;
+  /* Text - dark enough to stay readable on light frosted glass */
+  --text-primary: #1e293b;
+  --text-secondary: #52606d;
+  --text-muted: #8492a6;
 
   /* Accents */
-  --accent-gold: #ffb648;
-  --accent-gold-soft: rgba(255, 182, 72, 0.16);
-  --accent-blue: #5ec8f2;
-  --accent-error: #ff6b6b;
-  --accent-error-soft: rgba(255, 107, 107, 0.14);
+  --accent-gold: #f59e0b;
+  --accent-gold-soft: rgba(245, 158, 11, 0.14);
+  --accent-blue: #0ea5e9;
+  --accent-error: #e0433a;
+  --accent-error-soft: rgba(224, 67, 58, 0.12);
 
-  /* Air quality scale */
-  --aqi-good: #4fd1a5;
-  --aqi-fair: #e8d15a;
-  --aqi-moderate: #ffb648;
-  --aqi-poor: #ff6b6b;
-  --aqi-very-poor: #c084fc;
+  /* Air quality scale (kept saturated for contrast on light backgrounds) */
+  --aqi-good: #16a34a;
+  --aqi-fair: #ca8a04;
+  --aqi-moderate: #f59e0b;
+  --aqi-poor: #dc2626;
+  --aqi-very-poor: #9333ea;
 
   /* Spacing */
   --space-xs: 0.4rem;
@@ -48,8 +49,8 @@
   --radius-md: 18px;
   --radius-lg: 26px;
 
-  /* Shadow */
-  --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.35);
+  /* Shadow - a soft blue-tinted shadow reads more premium than plain gray/black */
+  --shadow-soft: 0 14px 40px rgba(59, 130, 246, 0.14);
 
   /* Motion */
   --transition-fast: 0.15s ease;

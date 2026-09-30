@@ -6,9 +6,13 @@
   weather condition, so it's not just decoration:
     - Rain / Drizzle / Thunderstorm -> falling rain streaks
     - Snow                          -> falling snowflakes
-    - Clear, at night               -> twinkling stars
+    - Clear                         -> gently floating golden sparkle motes
     - Anything else (clouds, mist,
-      clear daytime, unknown)        -> a few large, slow-drifting soft clouds
+      unknown)                      -> a few large, slow-drifting soft clouds
+
+  Colors are tuned for the light "daylight sky" theme (see variables.css) -
+  darker/more saturated than they'd be on a dark background, so they're
+  still visible against a light sky.
 
   This file only draws on the canvas - it doesn't know anything about the
   rest of the app. app.js calls setBackgroundCondition() once the real
@@ -22,7 +26,7 @@
 var backgroundCanvas = null;
 var backgroundContext = null;
 var backgroundParticles = [];
-var currentEffectType = "clouds"; // "rain", "snow", "stars", or "clouds"
+var currentEffectType = "clouds"; // "rain", "snow", "sparkle", or "clouds"
 var animationFrameId = null;
 
 /*
@@ -55,26 +59,25 @@ function resizeBackgroundCanvas() {
 }
 
 /*
-  setBackgroundCondition(conditionMain, isNight)
+  setBackgroundCondition(conditionMain)
   Called from app.js whenever new weather data arrives. Decides which
   effect to show and rebuilds the particle list for it.
 
   Parameters:
     conditionMain (string) - weatherData.weather[0].main, e.g. "Rain",
                               "Clouds", "Clear", "Snow", "Thunderstorm"
-    isNight (boolean) - true if it's currently night at that location
   Returns: nothing.
   Called from: app.js, in renderCurrentWeather()
 */
-function setBackgroundCondition(conditionMain, isNight) {
+function setBackgroundCondition(conditionMain) {
   var effectType = "clouds";
 
   if (conditionMain === "Rain" || conditionMain === "Drizzle" || conditionMain === "Thunderstorm") {
     effectType = "rain";
   } else if (conditionMain === "Snow") {
     effectType = "snow";
-  } else if (conditionMain === "Clear" && isNight) {
-    effectType = "stars";
+  } else if (conditionMain === "Clear") {
+    effectType = "sparkle";
   } else {
     effectType = "clouds";
   }
@@ -120,15 +123,16 @@ function buildParticles(effectType) {
         drift: Math.random() * 2 - 1
       });
     }
-  } else if (effectType === "stars") {
-    var starCount = 90;
-    for (var k = 0; k < starCount; k++) {
+  } else if (effectType === "sparkle") {
+    var sparkleCount = 70;
+    for (var k = 0; k < sparkleCount; k++) {
       backgroundParticles.push({
         x: Math.random() * width,
-        y: Math.random() * height * 0.7, // keep stars in the upper sky
-        radius: 0.6 + Math.random() * 1.4,
-        twinkleSpeed: 0.5 + Math.random() * 1.5,
-        twinkleOffset: Math.random() * Math.PI * 2
+        y: Math.random() * height,
+        radius: 1.2 + Math.random() * 2.2,
+        twinkleSpeed: 0.4 + Math.random() * 1.2,
+        twinkleOffset: Math.random() * Math.PI * 2,
+        driftY: 0.08 + Math.random() * 0.1
       });
     }
   } else {
@@ -184,15 +188,15 @@ function drawFrame() {
     drawRain(width, height);
   } else if (currentEffectType === "snow") {
     drawSnow(width, height);
-  } else if (currentEffectType === "stars") {
-    drawStars();
+  } else if (currentEffectType === "sparkle") {
+    drawSparkle(height);
   } else {
     drawClouds(width);
   }
 }
 
 function drawRain(width, height) {
-  backgroundContext.strokeStyle = "rgba(180, 210, 255, 0.35)";
+  backgroundContext.strokeStyle = "rgba(14, 100, 160, 0.28)";
   backgroundContext.lineWidth = 1.5;
 
   for (var i = 0; i < backgroundParticles.length; i++) {
@@ -213,7 +217,7 @@ function drawRain(width, height) {
 }
 
 function drawSnow(width, height) {
-  backgroundContext.fillStyle = "rgba(255, 255, 255, 0.75)";
+  backgroundContext.fillStyle = "rgba(100, 130, 160, 0.45)";
 
   for (var i = 0; i < backgroundParticles.length; i++) {
     var flake = backgroundParticles[i];
@@ -232,25 +236,31 @@ function drawSnow(width, height) {
   }
 }
 
-function drawStars() {
+function drawSparkle(height) {
   var nowSeconds = Date.now() / 1000;
 
   for (var i = 0; i < backgroundParticles.length; i++) {
-    var star = backgroundParticles[i];
+    var mote = backgroundParticles[i];
 
     // Twinkle by varying opacity with a sine wave over time
-    var twinkle = 0.5 + 0.5 * Math.sin(nowSeconds * star.twinkleSpeed + star.twinkleOffset);
-    var opacity = 0.3 + twinkle * 0.7;
+    var twinkle = 0.5 + 0.5 * Math.sin(nowSeconds * mote.twinkleSpeed + mote.twinkleOffset);
+    var opacity = 0.15 + twinkle * 0.35;
 
-    backgroundContext.fillStyle = "rgba(255, 255, 255, " + opacity.toFixed(2) + ")";
+    backgroundContext.fillStyle = "rgba(245, 158, 11, " + opacity.toFixed(2) + ")";
     backgroundContext.beginPath();
-    backgroundContext.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+    backgroundContext.arc(mote.x, mote.y, mote.radius, 0, Math.PI * 2);
     backgroundContext.fill();
+
+    // Drift gently upward, like warm rising light, wrapping back to the bottom
+    mote.y -= mote.driftY;
+    if (mote.y < 0) {
+      mote.y = height;
+    }
   }
 }
 
 function drawClouds(width) {
-  backgroundContext.fillStyle = "rgba(255, 255, 255, 0.035)";
+  backgroundContext.fillStyle = "rgba(100, 130, 160, 0.06)";
 
   for (var i = 0; i < backgroundParticles.length; i++) {
     var cloud = backgroundParticles[i];
