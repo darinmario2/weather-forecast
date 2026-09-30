@@ -15,4 +15,4 @@
   Get a free key at: https://openweathermap.org/api
 */
 
-var API_KEY = "YOUR_OPENWEATHERMAP_API_KEY_HERE";
+var API_KEY = "a6101b89548d56df71d0e10b38db9984";
