@@ -1,4 +1,4 @@
-# WeatherNow — Weather Prediction Web App
+# WeatherNow — Weather Prediction App
 
 A responsive weather dashboard built with plain HTML5, CSS3 and vanilla
 JavaScript (no frameworks), using the OpenWeatherMap API.
